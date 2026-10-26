@@ -1,0 +1,284 @@
+---
+import Base from '../layouts/Base.astro';
+import Patron from '../components/Patron.astro';
+import Ruban from '../components/Ruban.astro';
+import Statut from '../components/Statut.astro';
+import Photo from '../components/Photo.astro';
+import Comparateur from '../components/Comparateur.astro';
+import Horaires from '../components/Horaires.astro';
+import CarteFacade from '../components/CarteFacade.astro';
+import { SITE, AVIS } from '../data/site';
+import prestations from '../data/prestations.json';
+
+const AC = '[À CONFIRMER]';
+
+const methode = [
+  { t: 'Écouter d’abord', d: 'Vos envies, vos anciennes couleurs, ce qui ne vous a pas plu la dernière fois. Valérie pose les questions avant de sortir le pinceau.' },
+  { t: 'Conseiller franchement', d: 'Si une technique ne convient pas à vos cheveux, elle vous le dit. Le conseil passe avant la prestation.' },
+  { t: 'Protéger le cheveu', d: 'Une belle couleur aujourd’hui, et des cheveux en bonne santé dans six mois : les deux comptent autant.' },
+];
+
+const transformations = [
+  { id: 'comp-1', titre: 'Carte blanche sur des nuances multiples', technique: 'Balayage et reprise du contouring', avant: 'cheveux aux nuances laissées par les couleurs précédentes, de dos, lumière du jour', apres: 'même cadrage, effet lumineux et naturel' },
+  { id: 'comp-2', titre: 'Venue sans rendez-vous', technique: 'Ombré et patine', avant: 'longueurs avant la couleur, de trois quarts dos', apres: 'même angle, ombré et patine posés' },
+  { id: 'comp-3', titre: 'Une couleur à reprendre', technique: 'Rattrapage de couleur', avant: 'couleur à corriger, de dos, cheveux lâchés', apres: 'même cadrage, couleur unifiée' },
+];
+
+const entretien = [
+  ['Rendez-vous', 'avec ou sans, les deux sont possibles'],
+  ['Accès', 'entrée et parking accessibles en fauteuil roulant'],
+  ['Paiement', 'carte bancaire, sans contact'],
+  ['Clientèle', 'femmes et hommes'],
+  ['À la tête du salon', 'Valérie, plus de 17 ans de métier'],
+];
+
+const faq = [
+  { q: 'Peut-on venir sans rendez-vous ?', r: 'Oui. Le salon accepte les clientes et clients sans rendez-vous, du mardi au samedi. Pour être sûr d’avoir un créneau, vous pouvez réserver sur Planity ou appeler le ' + SITE.telAffiche + '.' },
+  { q: 'Comment prendre rendez-vous ?', r: 'En ligne sur Planity, à toute heure, ou par téléphone au ' + SITE.telAffiche + ' pendant les heures d’ouverture.' },
+  { q: 'Quelles prestations couleur propose le salon ?', r: 'Balayage, ombré, patine, mèches, coloration et rattrapage de couleur, y compris la reprise d’un contouring.' },
+  { q: 'Le salon est-il accessible en fauteuil roulant ?', r: 'Oui : l’entrée et le parking sont accessibles en fauteuil roulant.' },
+  { q: 'Le salon coiffe-t-il aussi les hommes ?', r: 'Oui, L’atelier du cheveu est un salon de coiffure femme et homme.' },
+  { q: 'Quels moyens de paiement sont acceptés ?', r: 'La carte bancaire, y compris le paiement sans contact.' },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.r } })),
+};
+---
+<Base
+  title="Coloriste à Saint-Brice-sous-Forêt | L'atelier du cheveu by Valérie"
+  description="Salon de coiffure femme et homme au 27 rue de Paris, Saint-Brice-sous-Forêt : balayage, ombré, patine, rattrapage de couleur. 4,8/5 sur Google. Avec ou sans rendez-vous."
+  jsonld={[faqLd]}
+>
+  <!-- Ouverture -->
+  <section class="ouverture relative overflow-x-clip">
+    <div class="wrap grid lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] gap-0">
+      <div class="pt-10 pb-12 md:pt-16 lg:pt-20 lg:pb-24 lg:pr-14">
+        <p class="fil">{SITE.adresse.rue}, {SITE.adresse.ville}</p>
+        <h1 class="mt-5 text-[2.75rem] sm:text-[4rem] lg:text-[4.8rem] max-w-[12ch] lg:max-w-[14ch]">Coiffure et couleur <span class="whitespace-nowrap">sur-mesure</span> à <span class="whitespace-nowrap">Saint-Brice</span></h1>
+        <p class="mt-6 max-w-[48ch] text-[1.12rem]">Valérie coiffe depuis plus de 17 ans. Balayage, ombré, patine, rattrapage de couleur : elle regarde vos cheveux avant de choisir, et vous dit franchement ce qui leur fera du bien.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={SITE.planity} class="btn btn-plein" target="_blank" rel="noopener">Prendre RDV en ligne</a>
+          <a href={`tel:${SITE.telLien}`} class="btn btn-ligne">Appeler le {SITE.telAffiche}</a>
+        </div>
+        <p class="mt-6 font-semibold">Avec ou sans rendez-vous.</p>
+        <p class="mt-1.5 text-[0.98rem]"><Statut /></p>
+        <dl class="notes mt-9 flex flex-wrap gap-x-10 gap-y-4">
+          <div>
+            <dt class="text-[0.9rem] text-encre-2">Google, {SITE.nbAvisGoogle} avis</dt>
+            <dd class="font-titre text-[2.6rem] leading-none mt-1">{SITE.noteGoogle}<span class="text-[1.3rem] text-encre-2"> / 5</span></dd>
+          </div>
+          <div>
+            <dt class="text-[0.9rem] text-encre-2">Planity, {SITE.nbAvisPlanity} avis</dt>
+            <dd class="font-titre text-[2.6rem] leading-none mt-1">{SITE.notePlanity}<span class="text-[1.3rem] text-encre-2"> / 5</span></dd>
+          </div>
+        </dl>
+      </div>
+      <div class="planche relative -mx-5 md:-mx-10 lg:mx-0 lg:-mr-[max(2.5rem,calc((100vw-78rem)/2+2.5rem))] bg-nude">
+        <Patron class="block w-full max-w-[30rem] mx-auto h-auto px-6 pt-8 pb-16 lg:pt-14" />
+      </div>
+    </div>
+    <Ruban class="ruban-bord -mt-[23px] relative rotate-[-0.6deg] origin-left" />
+  </section>
+
+  <!-- Valérie -->
+  <section id="valerie" class="wrap pt-20 pb-20 md:pt-28 md:pb-28 grid gap-10 lg:grid-cols-12 lg:gap-14">
+    <div class="lg:col-span-5">
+      <Photo class="aspect-[4/5] w-full" alt="Portrait de Valérie dans son salon" legende="portrait de Valérie au fauteuil, ciseaux ou pinceau en main, lumière naturelle, format vertical 4:5." />
+    </div>
+    <div class="lg:col-span-6 lg:col-start-7 lg:pt-8">
+      <p class="fil">Valérie</p>
+      <h2 class="mt-4 text-[2.4rem] md:text-[3.2rem] max-w-[16ch]">Plus de 17 ans de métier, et toujours la même méthode</h2>
+      <p class="mt-6 max-w-[54ch]">L’atelier du cheveu, c’est le salon de Valérie. On y vient pour une coupe, pour une couleur réfléchie, ou pour réparer une couleur qui a mal tourné ailleurs. Dans tous les cas, ça commence par une conversation.</p>
+      <dl class="methode mt-10 max-w-[54ch]">
+        {methode.map((m) => (
+          <div class="py-5">
+            <dt class="font-titre text-[1.7rem] leading-tight">{m.t}</dt>
+            <dd class="mt-1.5 text-encre-2">{m.d}</dd>
+          </div>
+        ))}
+      </dl>
+      <blockquote class="mt-10 pl-6 border-l-2 border-cuivre max-w-[46ch]">
+        <p class="font-titre italic text-[1.6rem] md:text-[1.8rem] leading-snug">« {AVIS[0]} »</p>
+        <footer class="mt-3 text-[0.92rem] text-encre-2">Avis Google</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Prestations -->
+  <section id="prestations" class="sur-nude bg-nude py-20 md:py-28">
+    <div class="wrap">
+      <div class="grid gap-6 lg:grid-cols-12 items-end">
+        <div class="lg:col-span-7">
+          <p class="fil">Les prestations</p>
+          <h2 class="mt-4 text-[2.4rem] md:text-[3.2rem] max-w-[18ch]">La couleur en tête, la coupe juste derrière</h2>
+        </div>
+        <p class="lg:col-span-5 max-w-[46ch]">Les tarifs dépendent de la longueur et de l’épaisseur de vos cheveux. Les prix à jour et les créneaux libres sont sur Planity.</p>
+      </div>
+
+      <div class="mt-14 grid gap-14">
+        {prestations.familles.map((f) => (
+          <div class="famille grid gap-6 lg:grid-cols-12" id={`famille-${f.id}`}>
+            <div class="lg:col-span-3">
+              <h3 class="text-[2rem] md:text-[2.3rem]">{f.nom}</h3>
+              <p class="mt-2 text-[0.97rem] text-encre-2 max-w-[34ch]">{f.intro}</p>
+            </div>
+            <ul class="lg:col-span-9 grid">
+              {f.prestations.map((p) => (
+                <li class="ligne grid gap-x-6 gap-y-2 py-4 sm:grid-cols-[14rem_minmax(0,1fr)_auto] sm:items-center">
+                  <span class="etiquette justify-self-start sm:justify-self-stretch font-titre text-[1.35rem] leading-none text-center">{p.nom}</span>
+                  <span class="text-[0.97rem]">{p.detail.split(AC).map((t, k) => <>{k > 0 && <span class="ac">{AC}</span>}{t}</>)}</span>
+                  <span class="prix text-[0.95rem] font-semibold whitespace-nowrap">Tarif : {p.prix === AC ? <span class="ac">{AC}</span> : p.prix}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <a href={SITE.planity} class="btn btn-plein" target="_blank" rel="noopener">Voir les créneaux sur Planity</a>
+        <p class="text-[0.97rem]">Le salon est aussi présent sur Fresha.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avant / après -->
+  <section id="avant-apres" class="wrap py-20 md:py-28">
+    <div class="grid gap-6 lg:grid-cols-12 items-end">
+      <div class="lg:col-span-7">
+        <p class="fil">Avant / après</p>
+        <h2 class="mt-4 text-[2.4rem] md:text-[3.2rem] max-w-[17ch]">Trois couleurs, avant et après le passage au salon</h2>
+      </div>
+      <p class="lg:col-span-5 max-w-[46ch]">Faites glisser le mètre ruban sous chaque photo, ou utilisez les flèches du clavier. Les photos sont prises au salon, avec l’accord des clientes.</p>
+    </div>
+    <div class="mt-14 grid gap-14 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+      {transformations.map((t, i) => (
+        <div class={i === 1 ? 'lg:mt-20' : i === 2 ? 'lg:mt-8' : ''}>
+          <Comparateur {...t} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Le salon -->
+  <section id="salon" class="py-20 md:py-28 border-t border-encre/10">
+    <div class="wrap grid gap-12 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-7 grid grid-cols-6 gap-4">
+        <Photo class="col-span-6 aspect-[16/10]" alt="L'intérieur du salon et sa décoration" legende="vue d'ensemble du salon depuis l'entrée, postes de coiffage et décoration, lumière du jour, format paysage 16:10." />
+        <Photo class="col-span-3 aspect-[4/5]" alt="Détail de la décoration du salon" legende="un détail du décor (miroir, étagère, plante…), vertical 4:5." />
+        <Photo class="col-span-3 aspect-[4/5]" alt="La devanture du salon, 27 rue de Paris" legende="la devanture et l'entrée de plain-pied, depuis le trottoir d'en face, vertical 4:5." />
+      </div>
+      <div class="lg:col-span-5 lg:pt-6">
+        <p class="fil">Le salon</p>
+        <h2 class="mt-4 text-[2.4rem] md:text-[3.2rem] max-w-[14ch]">Un atelier, rue de Paris</h2>
+        <p class="mt-6 max-w-[48ch]">Les clientes en parlent comme d’un salon « magnifique, très bien décoré », à l’ambiance chaleureuse. On y vient sur rendez-vous pour une couleur préparée, ou à l’improviste : plusieurs clientes sont passées sans rendez-vous pour un changement complet.</p>
+
+        <div class="entretien mt-10 max-w-[26rem] bg-blanc">
+          <p class="font-titre text-[1.5rem] leading-none px-6 pt-6">Étiquette d’entretien</p>
+          <dl class="px-6 pb-6 pt-3">
+            {entretien.map(([k, v]) => (
+              <div class="py-2.5 grid grid-cols-[8.5rem_minmax(0,1fr)] gap-3 text-[0.95rem]">
+                <dt class="font-semibold">{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avis -->
+  <section id="avis" class="sur-encre bg-encre text-blanc py-20 md:py-28">
+    <div class="wrap grid gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="fil">Avis des clientes</p>
+        <h2 class="mt-4 text-[2.4rem] md:text-[3.2rem] max-w-[12ch]">Ce qu’elles en disent</h2>
+        <dl class="mt-10 grid gap-8">
+          <div>
+            <dt class="text-[0.95rem] text-blanc/80">Note Google, {SITE.nbAvisGoogle} avis</dt>
+            <dd class="font-titre text-[4.6rem] leading-none mt-1">{SITE.noteGoogle}<span class="text-[1.6rem] text-blanc/70"> / 5</span></dd>
+          </div>
+          <div>
+            <dt class="text-[0.95rem] text-blanc/80">Note Planity, {SITE.nbAvisPlanity} avis</dt>
+            <dd class="font-titre text-[4.6rem] leading-none mt-1">{SITE.notePlanity}<span class="text-[1.6rem] text-blanc/70"> / 5</span></dd>
+          </div>
+        </dl>
+        <a href={SITE.planity} class="btn mt-10 !border-blanc text-blanc hover:bg-blanc hover:text-encre" target="_blank" rel="noopener">Lire les avis sur Planity</a>
+      </div>
+      <ul class="lg:col-span-8 grid gap-10 md:gap-12">
+        {AVIS.slice(1).map((a, i) => (
+          <li class={`avis max-w-[40ch] ${i % 2 ? 'md:ml-auto' : ''}`}>
+            <blockquote>
+              <p class="font-titre italic text-[1.55rem] md:text-[1.85rem] leading-snug">« {a} »</p>
+              <footer class="mt-3 text-[0.92rem] text-cuivre-clair">Avis Google</footer>
+            </blockquote>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Infos pratiques -->
+  <section id="infos" class="wrap py-20 md:py-28">
+    <p class="fil">Infos pratiques</p>
+    <h2 class="mt-4 text-[2.4rem] md:text-[3.2rem] max-w-[18ch]">27 rue de Paris, <span class="sm:whitespace-nowrap">Saint-Brice-sous-Forêt</span></h2>
+    <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-5 min-w-0 grid gap-10 content-start">
+        <div>
+          <h3 class="text-[1.7rem]">Horaires</h3>
+          <p class="mt-2 text-[0.98rem]"><Statut /></p>
+          <div class="mt-4"><Horaires /></div>
+          <p class="mt-3 text-[0.92rem] text-encre-2">Le lundi, appelez avant de venir : l’ouverture ce jour-là reste à confirmer.</p>
+        </div>
+        <address class="not-italic grid gap-1.5">
+          <h3 class="text-[1.7rem] mb-1">Adresse et contact</h3>
+          <span>{SITE.nom}</span>
+          <span>{SITE.adresse.rue}, {SITE.adresse.cp} {SITE.adresse.ville}</span>
+          <a href={`tel:${SITE.telLien}`} class="lien inline-flex items-center min-h-[44px] font-semibold">{SITE.telAffiche}</a>
+          <a href={SITE.planity} class="lien inline-flex items-center min-h-[44px]" target="_blank" rel="noopener">Réserver sur Planity</a>
+          <a href={SITE.instagram} class="lien inline-flex items-center min-h-[44px]" target="_blank" rel="noopener">Instagram : <span class="break-all">{SITE.instagramPseudo}</span></a>
+        </address>
+        <p class="text-[0.97rem] max-w-[46ch]">Le salon reçoit les clientes de Saint-Brice-sous-Forêt et des alentours : {SITE.voisines.join(', ')}.</p>
+      </div>
+      <div class="lg:col-span-7 min-w-0 min-h-[300px]">
+        <CarteFacade />
+      </div>
+    </div>
+
+    <div class="faq mt-20 grid gap-8 lg:grid-cols-12">
+      <h2 class="lg:col-span-4 text-[2.1rem] md:text-[2.6rem] max-w-[12ch]">Questions fréquentes</h2>
+      <div class="lg:col-span-8">
+        {faq.map((f) => (
+          <details class="question">
+            <summary class="font-titre text-[1.45rem] md:text-[1.6rem] leading-tight">{f.q}</summary>
+            <p class="pb-5 max-w-[60ch]">{f.r}</p>
+          </details>
+        ))}
+        <details class="question">
+          <summary class="font-titre text-[1.45rem] md:text-[1.6rem] leading-tight">Quels sont les horaires du salon ?</summary>
+          <p class="pb-5 max-w-[60ch]">Du mardi au samedi, de 9h30 à 19h00. Fermé le dimanche. Le lundi : <span class="ac">{AC}</span>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ruban-bord { width: 100%; }
+  .methode > div + div, .famille + .famille { border-top: 1.5px dashed color-mix(in srgb, var(--color-encre) 25%, transparent); }
+  .famille + .famille { padding-top: 3.5rem; }
+  .ligne + .ligne { border-top: 1px solid color-mix(in srgb, var(--color-encre) 12%, transparent); }
+  .entretien { border: 1.5px solid var(--color-encre); outline: 1.5px dashed var(--color-cuivre); outline-offset: -8px; }
+  .entretien dl > div + div { border-top: 1px solid color-mix(in srgb, var(--color-encre) 15%, transparent); }
+  .lien { text-decoration: underline; text-decoration-color: var(--color-cuivre); text-underline-offset: 5px; text-decoration-thickness: 1.5px; }
+  .question { border-top: 1.5px dashed color-mix(in srgb, var(--color-encre) 25%, transparent); }
+  .question:last-child { border-bottom: 1.5px dashed color-mix(in srgb, var(--color-encre) 25%, transparent); }
+  .question summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 44px; padding: 1.1rem 0; }
+  .question summary::-webkit-details-marker { display: none; }
+  .question summary::after { content: '+'; font-family: var(--font-texte); font-size: 1.5rem; color: var(--color-cuivre); transition: transform .2s; flex: none; }
+  .question[open] summary::after { transform: rotate(45deg); }
+</style>

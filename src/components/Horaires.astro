@@ -1,0 +1,22 @@
+---
+import { HORAIRES, fmtHeure } from '../data/site';
+---
+<table class="horaires w-full text-[1rem] tabular-nums">
+  <caption class="sr-only">Horaires d'ouverture du salon</caption>
+  <tbody>
+    {HORAIRES.map((h) => (
+      <tr data-jour={h.jour}>
+        <th scope="row" class="text-left font-semibold py-2.5 pr-4">{h.nom}</th>
+        <td class="text-right py-2.5">
+          {h.aConfirmer ? <span class="ac">[À CONFIRMER]</span>
+            : h.plages.length ? h.plages.map((p) => `${fmtHeure(p.ouvre)} – ${fmtHeure(p.ferme)}`).join(' · ')
+            : 'Fermé'}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+<style>
+  .horaires tr { border-bottom: 1.5px dashed color-mix(in srgb, var(--color-encre) 22%, transparent); }
+  .horaires tr[aria-current='date'] th::after { content: ' · aujourd’hui'; font-weight: 500; color: var(--color-cuivre-fonce); }
+</style>

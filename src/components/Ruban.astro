@@ -1,0 +1,25 @@
+---
+// Mètre ruban gradué (décoratif). Le repère « 17 » rappelle les 17 ans de métier de Valérie.
+interface Props { class?: string; repere?: number }
+const { class: cls = '', repere = 17 } = Astro.props;
+const CM = 19; // largeur d'un centimètre en px
+const N = 100;
+const X0 = 10;
+const ticks = Array.from({ length: N * 2 + 1 }, (_, i) => i);
+const xr = X0 + repere * CM;
+---
+<div class={`ruban overflow-hidden ${cls}`} aria-hidden="true">
+  <svg width={N * CM + 20} height="74" viewBox={`0 0 ${N * CM + 20} 74`}>
+    <rect x="0" y="4" width={N * CM + 20} height="38" fill="#f1e3c4" />
+    <rect x="0" y="4" width={N * CM + 20} height="38" fill="none" stroke="#c9b48a" />
+    {ticks.map((i) => (
+      <line x1={X0 + (i * CM) / 2} x2={X0 + (i * CM) / 2} y1="4" y2={i % 2 === 0 ? 18 : 12} stroke="#1e2a44" stroke-width={i % 10 === 0 ? 1.6 : 1} />
+    ))}
+    {Array.from({ length: N }, (_, k) => k + 1).map((n) => (
+      <text x={X0 + n * CM} y="33" text-anchor="middle" font-family="Manrope Variable, sans-serif" font-size="10.5" font-weight={n === repere ? 800 : 500} fill={n === repere ? '#9c5530' : '#1e2a44'}>{n}</text>
+    ))}
+    <rect x={xr - 11} y="3" width="22" height="40" fill="none" stroke="#9c5530" stroke-width="2" />
+    <path d={`M${xr} 43 L ${xr} 52`} stroke="#9c5530" stroke-width="1.5" />
+    <text x={xr + 11} y="66" text-anchor="end" font-family="Cormorant Garamond, serif" font-style="italic" font-size="17" fill="#7f4325">17 ans de métier</text>
+  </svg>
+</div>

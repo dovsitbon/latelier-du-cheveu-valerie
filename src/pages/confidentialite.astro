@@ -1,0 +1,22 @@
+---
+import PageTexte from '../components/PageTexte.astro';
+import { SITE } from '../data/site';
+---
+<PageTexte title="Confidentialité | L'atelier du cheveu by Valérie, Saint-Brice" description="Politique de confidentialité du site de L'atelier du cheveu by Valérie à Saint-Brice-sous-Forêt : aucun cookie, aucun traceur, carte Google chargée seulement à votre demande." h1="Politique de confidentialité">
+  <h2>Ce que ce site collecte</h2>
+  <p>Rien. Le site n’a pas de formulaire, pas de compte, pas de mesure d’audience et ne dépose aucun cookie. C’est pour cela qu’il n’affiche pas de bandeau cookies.</p>
+
+  <h2>Hébergement</h2>
+  <p>Le site est hébergé par Vercel Inc. Comme tout hébergeur, Vercel peut enregistrer des journaux techniques (adresse IP, date, page demandée) pour assurer la sécurité et le bon fonctionnement du service.</p>
+
+  <h2>Carte Google Maps</h2>
+  <p>La carte n’est chargée que si vous cliquez sur « Afficher la carte Google ». Google peut alors déposer des cookies et collecter des données selon sa propre politique : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+
+  <h2>Prise de rendez-vous</h2>
+  <p>Les boutons « Prendre RDV » mènent à Planity. Les données saisies pour réserver sont traitées par Planity, selon sa politique de confidentialité. Le lien Instagram mène à Instagram (Meta).</p>
+
+  <h2>Vos droits</h2>
+  <p>Pour toute question sur vos données (accès, rectification, effacement), contactez le salon au <a href={`tel:${SITE.telLien}`}>{SITE.telAffiche}</a> ou par e-mail : <span class="ac">[À CONFIRMER]</span>. Vous pouvez aussi saisir la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">cnil.fr</a>).</p>
+
+  <p class="mt-8 text-encre-2">Dernière mise à jour : octobre 2026.</p>
+</PageTexte>

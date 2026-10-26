@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+interface Props { title: string; description: string; h1: string; noindex?: boolean }
+const { title, description, h1, noindex } = Astro.props;
+---
+<Base title={title} description={description} noindex={noindex}>
+  <article class="wrap py-14 md:py-20">
+    <div class="max-w-3xl texte">
+      <p class="fil">L'atelier du cheveu by Valérie</p>
+      <h1 class="mt-4 text-[2.6rem] md:text-[3.4rem] mb-10">{h1}</h1>
+      <slot />
+    </div>
+  </article>
+</Base>
+<style>
+  .texte :global(h2) { font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: .6rem; padding-top: 1.5rem; border-top: 1.5px dashed color-mix(in srgb, var(--color-encre) 25%, transparent); }
+  .texte :global(p), .texte :global(li) { max-width: 66ch; }
+  .texte :global(p + p) { margin-top: .8rem; }
+  .texte :global(a) { text-decoration: underline; text-decoration-color: var(--color-cuivre); text-underline-offset: 4px; }
+</style>

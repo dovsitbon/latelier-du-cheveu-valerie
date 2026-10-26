@@ -1,0 +1,83 @@
+---
+// Comparateur avant / après. Curseur natif (input range) : flèches du clavier, glisser, ou clic sur l'image.
+// Photos : passer `avantSrc` / `apresSrc` (imports depuis src/assets/), sinon emplacements légendés.
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { id: string; titre: string; technique: string; avant: string; apres: string; avantSrc?: ImageMetadata; apresSrc?: ImageMetadata }
+const { id, titre, technique, avant, apres, avantSrc, apresSrc } = Astro.props;
+---
+<figure class="comp" data-comp style="--pos: 50%">
+  <div class="cadre relative aspect-[4/5] overflow-hidden select-none" data-cadre>
+    <div class="couche apres absolute inset-0">
+      {apresSrc ? <Picture src={apresSrc} alt={`Après : ${technique}`} formats={['avif', 'webp']} widths={[480, 800]} sizes="(min-width: 1024px) 30vw, 90vw" class="w-full h-full object-cover" /> : (
+        <div class="vide vide-apres w-full h-full" role="img" aria-label={`Emplacement photo après : ${apres}`}>
+          <p class="legende right">Après : {apres}</p>
+        </div>
+      )}
+    </div>
+    <div class="couche avant absolute inset-0" style="clip-path: inset(0 calc(100% - var(--pos)) 0 0)">
+      {avantSrc ? <Picture src={avantSrc} alt={`Avant : ${technique}`} formats={['avif', 'webp']} widths={[480, 800]} sizes="(min-width: 1024px) 30vw, 90vw" class="w-full h-full object-cover" /> : (
+        <div class="vide vide-avant w-full h-full" role="img" aria-label={`Emplacement photo avant : ${avant}`}>
+          <p class="legende">Avant : {avant}</p>
+        </div>
+      )}
+    </div>
+    <span class="tag left-3">Avant</span>
+    <span class="tag right-3">Après</span>
+    <div class="trait absolute top-0 bottom-0" aria-hidden="true"><span class="bouton"></span></div>
+  </div>
+  <label class="block mt-4" for={id}>
+    <span class="sr-only">Comparer avant et après, {titre}. Flèches gauche et droite pour déplacer.</span>
+    <input id={id} type="range" min="0" max="100" value="50" step="1" class="ruban-range w-full" aria-valuetext="Moitié avant, moitié après" />
+  </label>
+  <figcaption class="mt-3">
+    <span class="font-titre text-[1.55rem] leading-tight block">{titre}</span>
+    <span class="block text-encre-2 text-[0.95rem]">{technique}</span>
+    <span class="ac inline-block mt-2">[À PRENDRE AVEC ACCORD DES CLIENTES]</span>
+  </figcaption>
+</figure>
+
+<style>
+  .cadre { --trait: var(--color-blanc); touch-action: pan-y; cursor: ew-resize; }
+  .vide { display: grid; align-content: end; padding: .75rem; }
+  .vide-avant { background-color: #c7a99c; background-image: repeating-linear-gradient(45deg, transparent 0 9px, rgb(30 42 68 / .09) 9px 10px); }
+  .vide-apres { background-color: var(--color-nude); background-image: repeating-linear-gradient(-45deg, transparent 0 14px, rgb(156 85 48 / .14) 14px 15px); justify-items: end; }
+  .legende { background: var(--color-blanc); font-size: .82rem; line-height: 1.35; padding: .4rem .6rem; max-width: 46%; border-left: 2px solid var(--color-cuivre); }
+  .legende.right { text-align: left; }
+  .tag { position: absolute; top: .75rem; background: var(--color-encre); color: var(--color-blanc); font-size: .8rem; font-weight: 650; padding: .2rem .6rem; border-radius: 999px; }
+  .trait { left: var(--pos); width: 2px; margin-left: -1px; background: var(--trait); box-shadow: 0 0 0 1px rgb(30 42 68 / .25); }
+  .bouton { position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-blanc); border: 1.5px dashed var(--color-cuivre); box-shadow: 0 0 0 4px var(--color-blanc); }
+  .bouton::before, .bouton::after { content: ''; position: absolute; top: 50%; width: 0; height: 0; border: 6px solid transparent; transform: translateY(-50%); }
+  .bouton::before { left: 6px; border-right-color: var(--color-encre); }
+  .bouton::after { right: 6px; border-left-color: var(--color-encre); }
+  .comp:has(input:focus-visible) .bouton { outline: 3px solid var(--color-cuivre); outline-offset: 4px; }
+
+  /* Le curseur prend l'allure d'un mètre ruban */
+  .ruban-range { -webkit-appearance: none; appearance: none; height: 44px; background: transparent; cursor: pointer; }
+  .ruban-range::-webkit-slider-runnable-track { height: 18px; background-color: #f1e3c4; background-image: repeating-linear-gradient(90deg, var(--color-encre) 0 1px, transparent 1px 10%), repeating-linear-gradient(90deg, var(--color-encre) 0 1px, transparent 1px 2%); background-size: 100% 100%, 100% 45%; background-repeat: no-repeat; border: 1px solid #c9b48a; }
+  .ruban-range::-moz-range-track { height: 18px; background-color: #f1e3c4; background-image: repeating-linear-gradient(90deg, var(--color-encre) 0 1px, transparent 1px 10%), repeating-linear-gradient(90deg, var(--color-encre) 0 1px, transparent 1px 2%); background-size: 100% 100%, 100% 45%; background-repeat: no-repeat; border: 1px solid #c9b48a; }
+  .ruban-range::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 34px; margin-top: -9px; background: var(--color-cuivre); border: 2px solid var(--color-blanc); border-radius: 4px 4px 50% 50%; }
+  .ruban-range::-moz-range-thumb { width: 22px; height: 30px; background: var(--color-cuivre); border: 2px solid var(--color-blanc); border-radius: 4px 4px 50% 50%; }
+  .ruban-range:focus-visible { outline: 3px solid var(--color-cuivre); outline-offset: 2px; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-comp]').forEach((comp) => {
+    const input = comp.querySelector<HTMLInputElement>('input[type=range]')!;
+    const cadre = comp.querySelector<HTMLElement>('[data-cadre]')!;
+    const maj = (v: number) => {
+      v = Math.max(0, Math.min(100, Math.round(v)));
+      input.value = String(v);
+      comp.style.setProperty('--pos', `${v}%`);
+      input.setAttribute('aria-valuetext', v === 0 ? 'Photo après en entier' : v === 100 ? 'Photo avant en entier' : `Avant sur ${v} % de l’image`);
+    };
+    input.addEventListener('input', () => maj(+input.value));
+    const depuis = (e: PointerEvent) => { const r = cadre.getBoundingClientRect(); maj(((e.clientX - r.left) / r.width) * 100); };
+    let actif = false;
+    cadre.addEventListener('pointerdown', (e) => { actif = true; cadre.setPointerCapture(e.pointerId); depuis(e); });
+    cadre.addEventListener('pointermove', (e) => { if (actif) depuis(e); });
+    const fin = () => { actif = false; };
+    cadre.addEventListener('pointerup', fin);
+    cadre.addEventListener('pointercancel', fin);
+  });
+</script>

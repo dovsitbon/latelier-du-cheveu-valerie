@@ -1,0 +1,44 @@
+{
+  "_note": "Tarifs à renseigner : remplacer \"[À CONFIRMER]\" par le prix affiché au salon (ex. \"à partir de 45 €\"). Les familles et l'ordre s'affichent tels quels.",
+  "familles": [
+    {
+      "id": "couleur",
+      "nom": "Couleur",
+      "intro": "La spécialité de la maison. On regarde d'abord l'état et l'historique de vos cheveux, puis on choisit la technique.",
+      "prestations": [
+        { "nom": "Balayage", "detail": "Éclaircissement posé à main levée, pour un effet lumineux et naturel.", "prix": "[À CONFIRMER]" },
+        { "nom": "Ombré", "detail": "Racines plus foncées, longueurs qui s'éclaircissent en douceur.", "prix": "[À CONFIRMER]" },
+        { "nom": "Patine", "detail": "Ajuste le reflet après un éclaircissement, ou ravive une couleur ternie.", "prix": "[À CONFIRMER]" },
+        { "nom": "Mèches", "detail": "Éclaircissement ciblé, mèche par mèche.", "prix": "[À CONFIRMER]" },
+        { "nom": "Coloration", "detail": "Couleur unie, racines ou longueurs.", "prix": "[À CONFIRMER]" },
+        { "nom": "Rattrapage de couleur", "detail": "Pour les cheveux aux nuances multiples laissées par les couleurs précédentes, contouring compris.", "prix": "[À CONFIRMER]" }
+      ]
+    },
+    {
+      "id": "coupe",
+      "nom": "Coupe & brushing",
+      "intro": "Coupe pensée pour votre nature de cheveu et votre façon de vous coiffer le matin.",
+      "prestations": [
+        { "nom": "Coupe femme", "detail": "Du simple rafraîchissement au changement complet.", "prix": "[À CONFIRMER]" },
+        { "nom": "Carré", "detail": "Court, mi-long, plongeant : la longueur se décide ensemble.", "prix": "[À CONFIRMER]" },
+        { "nom": "Brushing", "detail": "Mise en forme au séchoir et à la brosse.", "prix": "[À CONFIRMER]" }
+      ]
+    },
+    {
+      "id": "lissage",
+      "nom": "Lissage",
+      "intro": "Pour des cheveux plus lisses et plus faciles à coiffer au quotidien.",
+      "prestations": [
+        { "nom": "Lissage", "detail": "Technique et produit utilisés : [À CONFIRMER]", "prix": "[À CONFIRMER]" }
+      ]
+    },
+    {
+      "id": "homme",
+      "nom": "Homme",
+      "intro": "Le salon coiffe aussi les hommes.",
+      "prestations": [
+        { "nom": "Coupe homme", "detail": "Détail de la prestation : [À CONFIRMER]", "prix": "[À CONFIRMER]" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Page introuvable | L'atelier du cheveu by Valérie" description="Cette page n'existe pas ou plus. Retrouvez les prestations couleur, les horaires et la prise de rendez-vous du salon à Saint-Brice-sous-Forêt." noindex>
+  <section class="wrap py-20 md:py-28 max-w-3xl">
+    <p class="font-titre italic text-[7rem] leading-none text-cuivre" aria-hidden="true">404</p>
+    <h1 class="mt-4 text-[2.4rem] md:text-[3.2rem] max-w-[18ch]">Cette page n’existe pas, ou elle a été recoupée</h1>
+    <p class="mt-5 max-w-[50ch]">L’adresse est peut-être mal tapée. Les prestations, les horaires et la prise de rendez-vous sont sur la page d’accueil.</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/" class="btn btn-plein">Retour à l’accueil</a>
+      <a href={`tel:${SITE.telLien}`} class="btn btn-ligne">Appeler le {SITE.telAffiche}</a>
+    </div>
+  </section>
+</Base>

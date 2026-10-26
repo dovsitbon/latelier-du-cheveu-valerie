@@ -1,0 +1,9 @@
+---
+// Logotype texte : « L'atelier du cheveu » en serif, « by Valérie » en italique.
+interface Props { class?: string; clair?: boolean }
+const { class: cls = '', clair = false } = Astro.props;
+---
+<span translate="no" class={`logo inline-flex flex-col leading-none ${cls}`}>
+  <span class="font-titre font-semibold text-[1.45rem] md:text-[1.6rem] tracking-[-0.01em]">L'atelier du cheveu</span>
+  <span class={`font-titre italic text-[1.05rem] md:text-[1.1rem] mt-0.5 pl-[3.2em] ${clair ? 'text-cuivre-clair' : 'text-cuivre'}`}>by Valérie</span>
+</span>

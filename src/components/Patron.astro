@@ -1,0 +1,38 @@
+---
+// Patron de couture au trait : pièce « carré » posée sur un croquis de buste. Décoratif.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+const piece = 'M110 385 C 95 300, 92 230, 120 170 C 150 112, 250 112, 280 170 C 308 230, 305 300, 290 385 L 252 371 C 258 322, 258 282, 250 252 C 236 226, 164 226, 150 252 C 142 282, 142 322, 148 371 Z';
+---
+<svg class={cls} viewBox="0 0 400 500" role="img" aria-labelledby="patron-t">
+  <title id="patron-t">Croquis au trait d'un patron de couture en forme de coupe au carré, avec ses cotes et ses crans</title>
+  <g fill="none" stroke="#1e2a44" stroke-linecap="round" stroke-linejoin="round">
+    <!-- croquis du visage et du buste -->
+    <g stroke-width="1" opacity=".55">
+      <path d="M200 222 C 236 224, 252 262, 250 300 C 248 336, 228 362, 200 364 C 172 362, 152 336, 150 300 C 148 262, 164 224, 200 222" />
+      <path d="M180 358 L 178 420 M220 358 L 222 420" />
+      <path d="M96 488 C 120 446, 160 430, 178 420 M222 420 C 240 430, 280 446, 304 488" />
+      <path d="M186 300 q 6 4 12 0 M206 300 q 6 4 12 0 M196 336 q 4 3 8 0" />
+    </g>
+    <!-- marge de couture -->
+    <path d={piece} stroke="#9c5530" stroke-width="1.4" stroke-dasharray="6 5" transform="translate(200 262) scale(1.075) translate(-200 -262)" />
+    <!-- pièce -->
+    <path d={piece} stroke-width="2.2" fill="#faf6f1" fill-opacity=".55" />
+    <!-- crans -->
+    <path d="M90 252 L 106 252 M294 252 L 310 252 M200 107 L 200 124" stroke-width="2" />
+    <!-- droit fil -->
+    <path d="M124 196 L 124 344 M118 206 L 124 196 L 130 206 M118 334 L 124 344 L 130 334" stroke-width="1.4" />
+    <!-- cote de longueur -->
+    <path d="M350 118 L 350 385 M342 118 L 358 118 M342 385 L 358 385 M345 128 L 350 118 L 355 128 M345 375 L 350 385 L 355 375" stroke="#9c5530" stroke-width="1.4" />
+    <path d="M300 118 L 336 118 M296 385 L 336 385" stroke="#9c5530" stroke-width="1" stroke-dasharray="2 4" />
+  </g>
+  <g fill="#1e2a44">
+    <text x="114" y="270" font-family="Manrope Variable, sans-serif" font-size="10" transform="rotate(-90 114 270)" text-anchor="middle">droit fil</text>
+    <text x="368" y="252" font-family="Cormorant Garamond, serif" font-style="italic" font-size="16" fill="#7f4325" transform="rotate(90 368 252)" text-anchor="middle">longueur : à vos mesures</text>
+    <text x="28" y="56" font-family="Cormorant Garamond, serif" font-size="30" font-weight="600">Patron n° 27</text>
+    <text x="28" y="80" font-family="Manrope Variable, sans-serif" font-size="12.5">Coupe au carré, rue de Paris</text>
+    <text x="28" y="98" font-family="Manrope Variable, sans-serif" font-size="12.5" fill="#7f4325">Couper 1 fois, sur-mesure</text>
+  </g>
+  <circle cx="200" cy="168" r="3.5" fill="#9c5530" />
+  <path d="M193 161 l 14 14 M207 161 l -14 14" stroke="#9c5530" stroke-width="1.2" />
+</svg>

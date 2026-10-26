@@ -1,0 +1,8 @@
+---
+import { SITE } from '../data/site';
+---
+<div class="md:hidden fixed inset-x-0 bottom-0 z-30 bg-encre text-blanc sur-encre grid grid-cols-[1.15fr_1fr_auto] gap-2 p-2.5 pb-[max(.625rem,env(safe-area-inset-bottom))]">
+  <a href={`tel:${SITE.telLien}`} class="btn !border-cuivre-clair bg-cuivre-clair !text-encre !px-3 whitespace-nowrap">Appeler</a>
+  <a href={SITE.planity} class="btn !border-blanc !text-blanc !px-3 whitespace-nowrap" target="_blank" rel="noopener">RDV en ligne</a>
+  <a href={SITE.itineraire} class="btn !border-blanc/60 !text-blanc !px-3" target="_blank" rel="noopener">Itinéraire</a>
+</div>

@@ -1,0 +1,32 @@
+---
+import Logo from './Logo.astro';
+import { SITE } from '../data/site';
+const p = Astro.url.pathname === '/' ? '' : '/';
+---
+<footer class="pied sur-encre bg-encre text-blanc pb-28 md:pb-0">
+  <div class="piqure h-[1.5px] text-cuivre-clair/60" aria-hidden="true"></div>
+  <div class="wrap py-14 grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
+    <div>
+      <Logo clair />
+      <p class="mt-5 text-[0.97rem] text-blanc/85 max-w-[34ch]">Salon de coiffure femme et homme, spécialiste de la couleur. Avec ou sans rendez-vous.</p>
+    </div>
+    <address class="not-italic text-[0.97rem] grid gap-1 content-start">
+      <span class="font-semibold">{SITE.nom}</span>
+      <span>{SITE.adresse.rue}</span>
+      <span>{SITE.adresse.cp} {SITE.adresse.ville}</span>
+      <a href={`tel:${SITE.telLien}`} class="inline-flex items-center min-h-[44px] underline underline-offset-4">{SITE.telAffiche}</a>
+    </address>
+    <nav aria-label="Liens utiles" class="text-[0.97rem]">
+      <ul class="grid gap-0">
+        <li><a class="inline-flex items-center min-h-[44px] underline underline-offset-4" href={SITE.planity} target="_blank" rel="noopener">Prendre RDV sur Planity</a></li>
+        <li><a class="inline-flex items-center min-h-[44px] underline underline-offset-4" href={SITE.instagram} target="_blank" rel="noopener">Instagram</a></li>
+        <li><a class="inline-flex items-center min-h-[44px] underline underline-offset-4" href={`${p}#infos`}>Horaires et accès</a></li>
+        <li><a class="inline-flex items-center min-h-[44px] underline underline-offset-4" href="/mentions-legales/">Mentions légales</a></li>
+        <li><a class="inline-flex items-center min-h-[44px] underline underline-offset-4" href="/confidentialite/">Confidentialité</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap pb-8 text-[0.85rem] text-blanc/75">
+    <p>{SITE.societe}, SIRET {SITE.siret}</p>
+  </div>
+</footer>

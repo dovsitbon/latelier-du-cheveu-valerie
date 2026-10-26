@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/cormorant-garamond/500-italic.css';
+@import '@fontsource-variable/manrope';
+
+@theme {
+  --color-encre: #1e2a44;
+  --color-encre-2: #4b556b;
+  --color-nude: #ebd5cc;
+  --color-nude-fonce: #dfc1b5;
+  --color-cuivre: #9c5530;
+  --color-cuivre-fonce: #7f4325;
+  --color-cuivre-clair: #d9946b;
+  --color-blanc: #faf6f1;
+  --font-titre: 'Cormorant Garamond', 'Garamond', Georgia, serif;
+  --font-texte: 'Manrope Variable', 'Segoe UI', Arial, sans-serif;
+}
+
+@layer base {
+  html { background: var(--color-blanc); color: var(--color-encre); -webkit-text-size-adjust: 100%; scroll-padding-top: 5.5rem; touch-action: manipulation; -webkit-tap-highlight-color: rgb(156 85 48 / .15); }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body { font-family: var(--font-texte); font-size: 1.0625rem; line-height: 1.65; overflow-x: clip; }
+  h1, h2, h3 { font-family: var(--font-titre); font-weight: 500; line-height: 1.02; letter-spacing: -0.01em; text-wrap: balance; }
+  h2 { line-height: 1.08; }
+  p { text-wrap: pretty; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--color-cuivre); outline-offset: 3px; border-radius: 2px; }
+  .sur-encre :focus-visible { outline-color: var(--color-cuivre-clair); }
+  ::selection { background: var(--color-encre); color: var(--color-blanc); }
+}
+
+@layer components {
+  .wrap { width: 100%; max-width: 78rem; margin-inline: auto; padding-inline: 1.25rem; }
+  @media (min-width: 768px) { .wrap { padding-inline: 2.5rem; } }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 48px; padding: .7rem 1.35rem; font-weight: 650; font-size: 1rem; line-height: 1.2; border: 1.5px solid var(--color-encre); border-radius: 999px; text-decoration: none; transition: background-color .18s, color .18s, border-color .18s; }
+  .btn-plein { background: var(--color-encre); color: var(--color-blanc); }
+  .btn-plein:hover { background: #2c3b5d; }
+  .btn-ligne { background: transparent; color: var(--color-encre); }
+  .btn-ligne:hover { background: var(--color-nude); }
+
+  /* Piqûre : ligne de points cousus */
+  .piqure { background-image: repeating-linear-gradient(90deg, currentColor 0 7px, transparent 7px 12px); background-size: 100% 1.5px; background-repeat: no-repeat; }
+
+  /* Titre de section : petit fil de cuivre + titre serif */
+  .fil { display: inline-flex; align-items: center; gap: .7rem; color: var(--color-cuivre); font-weight: 650; font-size: .95rem; }
+  .fil::before { content: ''; width: 2.2rem; height: 1.5px; background: repeating-linear-gradient(90deg, currentColor 0 5px, transparent 5px 8px); }
+  .sur-nude .fil { color: var(--color-cuivre-fonce); }
+  .sur-encre .fil { color: var(--color-cuivre-clair); }
+
+  /* Marqueur d'information à confirmer */
+  .ac { background: #fff0b3; color: #5a4300; font-family: var(--font-texte); font-style: normal; font-size: .82em; font-weight: 650; letter-spacing: 0; padding: 0 .3em; border-radius: 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; overflow-wrap: anywhere; }
+
+  /* Emplacement photo : aplat de la palette + légende du cliché attendu */
+  .photo-vide { position: relative; display: grid; place-items: end start; background-color: var(--color-nude-fonce); background-image: repeating-linear-gradient(115deg, transparent 0 22px, rgb(250 246 241 / .22) 22px 23px); color: var(--color-encre); overflow: hidden; }
+  .photo-vide .legende { position: relative; background: var(--color-blanc); font-size: .84rem; line-height: 1.4; padding: .5rem .7rem; margin: .75rem; border-left: 2px solid var(--color-cuivre); max-width: 88%; }
+
+  /* Étiquette cousue (ruban tissé) */
+  .etiquette { position: relative; background: var(--color-blanc); color: var(--color-encre); padding: .95rem 1.4rem 1rem; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%, 10px 50%); }
+  .etiquette::before { content: ''; position: absolute; inset: 5px 16px; border: 1.5px dashed color-mix(in srgb, var(--color-cuivre) 70%, transparent); pointer-events: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

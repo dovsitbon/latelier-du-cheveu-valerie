@@ -1,0 +1,31 @@
+---
+import Logo from './Logo.astro';
+import { SITE } from '../data/site';
+const surAccueil = Astro.url.pathname === '/';
+const p = surAccueil ? '' : '/';
+const liens = [
+  ['Valérie', '#valerie'],
+  ['Prestations', '#prestations'],
+  ['Avant / après', '#avant-apres'],
+  ['Le salon', '#salon'],
+  ['Avis', '#avis'],
+  ['Infos pratiques', '#infos'],
+];
+---
+<header class="entete sticky top-0 z-30 bg-blanc/95 backdrop-blur-[2px]">
+  <div class="wrap flex items-center justify-between gap-6 py-3">
+    <a href="/" class="no-underline py-1" aria-label={`${SITE.nom}, accueil`}><Logo /></a>
+    <nav aria-label="Sections" class="hidden lg:block">
+      <ul class="flex gap-1 text-[0.95rem]">
+        {liens.map(([t, h]) => <li><a href={p + h} class="nav-lien">{t}</a></li>)}
+      </ul>
+    </nav>
+    <a href={`tel:${SITE.telLien}`} class="tel hidden sm:inline-flex items-center min-h-[44px] font-semibold no-underline whitespace-nowrap">{SITE.telAffiche}</a>
+  </div>
+  <div class="piqure h-[1.5px] text-cuivre/70" aria-hidden="true"></div>
+</header>
+<style>
+  .nav-lien { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .7rem; text-decoration: none; border-radius: 999px; transition: background-color .15s; }
+  .nav-lien:hover { background: var(--color-nude); }
+  .tel { text-decoration: underline; text-decoration-color: var(--color-cuivre); text-underline-offset: 5px; text-decoration-thickness: 1.5px; }
+</style>

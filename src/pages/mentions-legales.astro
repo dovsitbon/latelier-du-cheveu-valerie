@@ -1,0 +1,32 @@
+---
+import PageTexte from '../components/PageTexte.astro';
+import { SITE } from '../data/site';
+---
+<PageTexte title="Mentions légales | L'atelier du cheveu by Valérie, Saint-Brice" description="Mentions légales du site de L'atelier du cheveu by Valérie, salon de coiffure au 27 rue de Paris, 95350 Saint-Brice-sous-Forêt : éditeur, hébergeur, propriété intellectuelle." h1="Mentions légales">
+  <h2>Éditeur du site</h2>
+  <p>{SITE.societe}, exploitant le salon « {SITE.nom} »<br />
+  Forme juridique : <span class="ac">[À CONFIRMER]</span><br />
+  Capital social : <span class="ac">[À CONFIRMER]</span><br />
+  SIRET : {SITE.siret}<br />
+  RCS : <span class="ac">[À CONFIRMER]</span><br />
+  N° TVA intracommunautaire : <span class="ac">[À CONFIRMER]</span><br />
+  Adresse : {SITE.adresse.rue}, {SITE.adresse.cp} {SITE.adresse.ville} (siège social <span class="ac">[À CONFIRMER]</span>)<br />
+  Téléphone : <a href={`tel:${SITE.telLien}`}>{SITE.telAffiche}</a><br />
+  E-mail : <span class="ac">[À CONFIRMER]</span></p>
+  <p>Directrice de la publication : <span class="ac">[À CONFIRMER]</span></p>
+
+  <h2>Hébergeur</h2>
+  <p>Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis : <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></p>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>Les textes, photos et éléments graphiques de ce site appartiennent à {SITE.societe}, sauf mention contraire. Les photos avant / après sont publiées avec l’accord des clientes concernées. Toute reproduction sans autorisation est interdite.</p>
+
+  <h2>Tarifs et horaires</h2>
+  <p>Les tarifs et horaires affichés sont donnés à titre indicatif. Les créneaux et prix à jour sont consultables sur Planity ou au téléphone.</p>
+
+  <h2>Liens externes</h2>
+  <p>Le site renvoie vers Planity (prise de rendez-vous), Instagram et Google Maps. Ces services ont leurs propres conditions d’utilisation.</p>
+
+  <h2>Données personnelles</h2>
+  <p>Voir la <a href="/confidentialite/">politique de confidentialité</a>.</p>
+</PageTexte>
